@@ -904,11 +904,11 @@ For $m = 100$ tests at $\alpha = 0.05$: $\text{FWER} = 1 - 0.95^{100} \approx 0.
 
 **Wald Interval** — based on asymptotic normality of MLE:
 
-$$\hat\theta \pm z_{\alpha/2} \cdot \widehat{\text{SE}}(\hat\theta) = \hat\theta \pm z_{\alpha/2} / \sqrt{n\hat{\mathcal{I}}(\hat\theta)}$$
+$$\hat\theta \pm z_{\alpha/2} \cdot \widehat{\text{SE}}(\hat\theta) = \hat\theta \pm \frac{z_{\alpha/2}}{\sqrt{n\hat{\mathcal{I}}(\hat\theta)}}$$
 
 **Profile Likelihood Interval** — based on inverting the likelihood ratio test:
 
-$$\left\{\theta : -2[\ell(\theta) - \ell(\hat\theta)] \leq \chi^2_{1,\alpha}\right\}$$
+$$\Bigl\{\theta : -2\bigl[\ell(\theta) - \ell(\hat\theta)\bigr] \leq \chi^2_{1,\alpha}\Bigr\}$$
 
 This is the set of $\theta$ values not rejected at level $\alpha$ by the likelihood ratio test. It is generally preferred over the Wald interval because it is invariant to reparameterization and can be asymmetric (which is more honest when the distribution of $\hat\theta$ is skewed).
 
@@ -1087,7 +1087,7 @@ At any point $x$, $\hat{F}_n(x)$ is the proportion of observations $\leq x$.
 
 Under $H_0$, exactly half of observations should exceed $M_0$. Define:
 
-$$B = \#\{i : X_i > M_0\}$$
+$$B = \bigl|\{i : X_i > M_0\}\bigr|$$
 
 Under $H_0$: $B \sim \text{Binomial}(n, 0.5)$.
 
@@ -1137,7 +1137,7 @@ Inverting the sign test gives a confidence interval for the median based on orde
 
 Inverting the Wilcoxon signed-rank test gives the **Hodges-Lehmann estimator** of location:
 
-$$\hat{M} = \text{median}\!\left\{\frac{X_i + X_j}{2} : i \leq j\right\}$$
+$$\hat{M} = \operatorname{median}\Bigl\{\frac{X_i + X_j}{2} : i \leq j\Bigr\}$$
 
 The associated confidence interval is based on these pairwise averages (Walsh averages).
 
@@ -1255,11 +1255,11 @@ For a scalar parameter: confidence interval. For a vector parameter: confidence 
 
 For the Normal model with unknown $(\mu, \sigma^2)$, the joint confidence region at level $\alpha$ is:
 
-$$C(\bar{x}, s^2) = \left\{(\mu, \sigma^2) : \frac{(\bar{x} - \mu)^2}{s^2/n} \leq F_{1,n-1,\alpha},\ \frac{(n-1)s^2}{\sigma^2} \in \left[\chi^2_{n-1,1-\alpha/2},\ \chi^2_{n-1,\alpha/2}\right]\right\}$$
+$$C(\bar{x}, s^2) = \Bigl\{(\mu, \sigma^2) : \frac{(\bar{x} - \mu)^2}{s^2/n} \leq F_{1,n-1,\alpha} \;\text{ and }\; \frac{(n-1)s^2}{\sigma^2} \in \bigl[\chi^2_{n-1,1-\alpha/2},\ \chi^2_{n-1,\alpha/2}\bigr]\Bigr\}$$
 
 The likelihood ratio approach gives an elegant all-in-one confidence region:
 
-$$C_{LR} = \left\{\theta : -2[\ell(\theta) - \ell(\hat\theta)] \leq \chi^2_{p,\alpha}\right\}$$
+$$C_{LR} = \Bigl\{\theta : -2\bigl[\ell(\theta) - \ell(\hat\theta)\bigr] \leq \chi^2_{p,\alpha}\Bigr\}$$
 
 This is the set of $\theta$ values within the "$\chi^2_{p,\alpha}/2$ log-likelihood units" of the MLE.
 
@@ -1328,11 +1328,11 @@ The bootstrap is especially powerful for: complex statistics (ratios, correlatio
 |---|---|---|---|
 | Bernoulli($p$) | $p^x(1-p)^{1-x}$ | $p$ | $p(1-p)$ |
 | Binomial($n,p$) | $\binom{n}{k}p^k(1-p)^{n-k}$ | $np$ | $np(1-p)$ |
-| Poisson($\lambda$) | $\lambda^k e^{-\lambda}/k!$ | $\lambda$ | $\lambda$ |
-| Normal($\mu,\sigma^2$) | $(2\pi\sigma^2)^{-1/2}e^{-(x-\mu)^2/2\sigma^2}$ | $\mu$ | $\sigma^2$ |
-| Exponential($\lambda$) | $\lambda e^{-\lambda x}$ | $1/\lambda$ | $1/\lambda^2$ |
-| Gamma($\alpha,\beta$) | $\frac{x^{\alpha-1}e^{-x/\beta}}{\Gamma(\alpha)\beta^\alpha}$ | $\alpha\beta$ | $\alpha\beta^2$ |
-| $\chi^2_\nu$ | Gamma($\nu/2, 2$) | $\nu$ | $2\nu$ |
+| Poisson($\lambda$) | $\dfrac{\lambda^k e^{-\lambda}}{k!}$ | $\lambda$ | $\lambda$ |
+| Normal($\mu,\sigma^2$) | $\dfrac{1}{\sqrt{2\pi\sigma^2}}e^{-(x-\mu)^2/(2\sigma^2)}$ | $\mu$ | $\sigma^2$ |
+| Exponential($\lambda$) | $\lambda e^{-\lambda x}$ | $\dfrac{1}{\lambda}$ | $\dfrac{1}{\lambda^2}$ |
+| Gamma($\alpha,\beta$) | $\dfrac{x^{\alpha-1}e^{-x/\beta}}{\Gamma(\alpha)\beta^\alpha}$ | $\alpha\beta$ | $\alpha\beta^2$ |
+| $\chi^2_\nu$ | Gamma$\!\left(\dfrac{\nu}{2},\, 2\right)$ | $\nu$ | $2\nu$ |
 
 ### Estimation
 
@@ -1340,11 +1340,11 @@ The bootstrap is especially powerful for: complex statistics (ratios, correlatio
 |---|---|
 | $\text{Bias}(\hat\theta) = E[\hat\theta] - \theta$ | Bias of an estimator |
 | $\text{MSE}(\hat\theta) = \text{Var}(\hat\theta) + \text{Bias}^2$ | Mean squared error |
-| $\text{Var}(\hat\theta) \geq 1/(n\mathcal{I}(\theta))$ | Cramér-Rao Lower Bound |
-| $\mathcal{I}(\theta) = -E[\partial^2\ell/\partial\theta^2]$ | Fisher information |
-| $\bar{X} \sim N(\mu, \sigma^2/n)$ | Sampling distribution of mean (Normal data) |
-| $S^2 = \frac{1}{n-1}\sum(X_i-\bar{X})^2$ | Unbiased sample variance |
-| $(n-1)S^2/\sigma^2 \sim \chi^2_{n-1}$ | Distribution of sample variance |
+| $\text{Var}(\hat\theta) \geq \dfrac{1}{n\,\mathcal{I}(\theta)}$ | Cramér-Rao Lower Bound |
+| $\mathcal{I}(\theta) = -E\!\left[\dfrac{\partial^2\ell}{\partial\theta^2}\right]$ | Fisher information |
+| $\bar{X} \sim N\!\left(\mu,\, \dfrac{\sigma^2}{n}\right)$ | Sampling distribution of mean (Normal data) |
+| $S^2 = \dfrac{1}{n-1}\displaystyle\sum(X_i-\bar{X})^2$ | Unbiased sample variance |
+| $\dfrac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}$ | Distribution of sample variance |
 
 ### Asymptotic Results
 
@@ -1352,30 +1352,30 @@ The bootstrap is especially powerful for: complex statistics (ratios, correlatio
 |---|---|
 | $\bar{X}_n \overset{P}{\to} \mu$ | Weak Law of Large Numbers |
 | $\bar{X}_n \overset{a.s.}{\to} \mu$ | Strong Law of Large Numbers |
-| $\sqrt{n}(\bar{X}-\mu)/\sigma \overset{d}{\to} N(0,1)$ | Central Limit Theorem |
-| $\sqrt{n}(g(\bar{X})-g(\mu)) \overset{d}{\to} N(0,[g'(\mu)]^2\sigma^2)$ | Delta Method |
-| $\hat\theta_{MLE} \overset{approx}{\sim} N(\theta, 1/(n\mathcal{I}(\theta)))$ | Asymptotic normality of MLE |
+| $\dfrac{\sqrt{n}(\bar{X}-\mu)}{\sigma} \overset{d}{\to} N(0,1)$ | Central Limit Theorem |
+| $\sqrt{n}\bigl(g(\bar{X})-g(\mu)\bigr) \overset{d}{\to} N\!\bigl(0,\,[g'(\mu)]^2\sigma^2\bigr)$ | Delta Method |
+| $\hat\theta_{MLE} \overset{\text{approx}}{\sim} N\!\left(\theta,\; \dfrac{1}{n\,\mathcal{I}(\theta)}\right)$ | Asymptotic normality of MLE |
 
 ### Hypothesis Testing
 
 | Formula | Description |
 |---|---|
-| $Z = (\bar{X}-\mu_0)/(\sigma/\sqrt{n})$ | Z-test statistic |
-| $T = (\bar{X}-\mu_0)/(S/\sqrt{n}) \sim t_{n-1}$ | t-test statistic |
-| $\chi^2 = (n-1)S^2/\sigma_0^2 \sim \chi^2_{n-1}$ | Chi-square test for variance |
-| $\Lambda = L(\hat\theta_0)/L(\hat\theta_{MLE})$ | Likelihood ratio statistic |
+| $Z = \dfrac{\bar{X}-\mu_0}{\sigma/\sqrt{n}}$ | Z-test statistic |
+| $T = \dfrac{\bar{X}-\mu_0}{S/\sqrt{n}} \sim t_{n-1}$ | t-test statistic |
+| $\chi^2 = \dfrac{(n-1)S^2}{\sigma_0^2} \sim \chi^2_{n-1}$ | Chi-square test for variance |
+| $\Lambda = \dfrac{L(\hat\theta_0)}{L(\hat\theta_{MLE})}$ | Likelihood ratio statistic |
 | $-2\log\Lambda \overset{d}{\to} \chi^2_r$ | Wilks' theorem |
-| $\chi^2 = \sum (O-E)^2/E$ | Pearson chi-square |
+| $\chi^2 = \displaystyle\sum \dfrac{(O-E)^2}{E}$ | Pearson chi-square |
 
 ### Nonparametric
 
 | Statistic | Description |
 |---|---|
-| $\hat{F}_n(x) = \frac{1}{n}\sum\mathbf{1}(X_i \leq x)$ | Empirical CDF |
-| $B = \#\{X_i > M_0\} \sim \text{Bin}(n, 0.5)$ | Sign test statistic |
-| $W^+ = \sum_{D_i>0} R_i$ | Wilcoxon signed-rank |
-| $D_n = \sup_x |\hat{F}_n - F_0|$ | KS test statistic |
-| $\hat{f}(x) = \frac{1}{nh}\sum K\!\left(\frac{x-X_i}{h}\right)$ | Kernel density estimator |
+| $\hat{F}_n(x) = \dfrac{1}{n}\displaystyle\sum\mathbf{1}(X_i \leq x)$ | Empirical CDF |
+| $B = \bigl|\{X_i > M_0\}\bigr| \sim \text{Bin}(n,\; 0.5)$ | Sign test statistic |
+| $W^+ = \displaystyle\sum_{D_i>0} R_i$ | Wilcoxon signed-rank |
+| $D_n = \sup_x \lvert\hat{F}_n - F_0\rvert$ | KS test statistic |
+| $\hat{f}(x) = \dfrac{1}{nh}\displaystyle\sum_{i=1}^n K\!\left(\dfrac{x-X_i}{h}\right)$ | Kernel density estimator |
 
 ---
 
